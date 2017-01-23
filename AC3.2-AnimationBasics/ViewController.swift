@@ -79,6 +79,13 @@ class ViewController: UIViewController {
       view.centerY.equalTo(animateButton.snp.centerY)
       view.leading.equalToSuperview().offset(20.0)
     }
+    
+    // slider
+    scrubbingSlider.snp.makeConstraints { (view) in
+      view.bottom.equalTo(animateButton.snp.top)
+      view.leading.equalToSuperview().offset(8.0)
+      view.trailing.equalToSuperview().inset(8.0)
+    }
   }
   
   private func setupViewHierarchy() {
@@ -92,12 +99,14 @@ class ViewController: UIViewController {
     self.view.addSubview(reverseAnimationsSwitch)
     self.view.addSubview(animateButton)
     self.view.addSubview(resetAnimationsButton)
+    self.view.addSubview(scrubbingSlider)
   }
   
   private func addGesturesAndActions() {
     self.animateButton.addTarget(self, action: #selector(animateViews), for: .touchUpInside)
     self.resetAnimationsButton.addTarget(self, action: #selector(reset), for: .touchUpInside)
     self.reverseAnimationsSwitch.addTarget(self, action: #selector(reverse(sender:)), for: .valueChanged)
+    self.scrubbingSlider.addTarget(self, action: #selector(updateAnimationProgress(sender:)), for: .valueChanged)
   }
   
   internal func reset() {
@@ -112,6 +121,18 @@ class ViewController: UIViewController {
     tealAnimator.isReversed = sender.isOn
     orangeAnimator.isReversed = sender.isOn
     yellowAnimator.isReversed = sender.isOn
+  }
+  
+  internal func updateAnimationProgress(sender: UISlider) {
+    
+    if darkBlueAnimator.isRunning {
+      darkBlueAnimator.pauseAnimation()
+    } else {
+      animateDarkBlueViewWithSnapkit()
+      darkBlueAnimator.pauseAnimation()
+    }
+    
+    darkBlueAnimator.fractionComplete = CGFloat(sender.value)
   }
   
   // MARK: - Animations
@@ -245,6 +266,13 @@ class ViewController: UIViewController {
     let reverseSwitch = UISwitch()
     reverseSwitch.isOn = false
     return reverseSwitch
+  }()
+  
+  internal lazy var scrubbingSlider: UISlider = {
+    let slider = UISlider()
+    slider.minimumTrackTintColor = Colors.red
+    slider.maximumTrackTintColor = Colors.yellow
+    return slider
   }()
 }
 
