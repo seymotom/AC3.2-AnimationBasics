@@ -10,12 +10,16 @@
 5. [Using UIViewPropertyAnimator - Technotopia](http://www.techotopia.com/index.php/IOS_10_Animation_using_UIViewPropertyAnimator)
 
 ### Awesome Tools
+
 1. [Cubic Bezier](http://cubic-bezier.com/#.17,.67,.83,.67)
+
+
 ---
 
 ### Animations the Old Way
 
 Previously, like laying out views in general, basic movement animations were done using primarily `frame`s. *(LINK TO ANIMATABLE PROPERTIES)*. The code is somewhat straightforward to read, but difficult to extend and create complex animations.
+
 
 #### Animating a View Left-to-Right: `UIView.animate`
 
@@ -31,11 +35,13 @@ Previously, like laying out views in general, basic movement animations were don
 
 > "A UIViewPropertyAnimator object lets you animate changes to views and dynamically modify your animations before they finish. With a property animator, you can run your animations from start to finish normally or you can turn them into interactive animations and control the timing yourself." 
 
+
 ---
 
 ### A Simple Example of `UIViewPropertyAnimator`
 
 `UIViewPropertyAnimator` works similar to its `animate(withDuration:)`: you put in the changes to animate within a block, you adjust durations, delay and (animation) curves, and have optional completion handlers.
+
 
 #### Animating a View Left-to-Right: `UIViewPropertyAnimator`
 
@@ -48,6 +54,7 @@ Previously, like laying out views in general, basic movement animations were don
 ```
 
 Not too much different right? Before we go onto doing some of the more interesting things `UIViewPropertyAnimator` can do, let's first talk about animation curves, and explain what that `.linear` means. 
+
 
 #### Animation Curves: [`UIViewAnimationCurve`](https://developer.apple.com/reference/uikit/uiviewanimationcurve)
 
@@ -98,6 +105,88 @@ Just writing them down isn't really going to help us visualize the actual moveme
 > Why is it necessary to use `self.view.layoutIfNeeded()` inside of the animation block, instead of just remaking the constraints? Adjusting the constraints is just part of the process; `layoutIfNeeded()` signals to the autolayout engine that it must immediately re-evaluate a view's constraints. Calling for that signal inside of an animation block results in getting an animation out of the redrawing/arranging that needs to happen.
 
 ---
+### Adding Animations
+
+`UIViewPropertyAnimator` is also intended to allow for dynamically adding animations. Let's first look how to add an animation to an existing animator object. 
+
+```swift
+    self.darkBlueView.snp.remakeConstraints { (view) in
+      view.trailing.equalToSuperview().inset(20.0)
+      view.top.equalToSuperview().offset(20.0)
+      view.size.equalTo(CGSize(width: 100.0, height: 100.0))
+    }
+    
+    let propertyAnimation = UIViewPropertyAnimator(duration: 1.0, curve: .linear) {
+      self.view.layoutIfNeeded()
+    }
+    
+    propertyAnimation.startAnimation()
+    
+    propertyAnimation.addAnimations {
+      self.darkBlueView.backgroundColor = Colors.red
+    }
+```
+
+Pretty simple! The animations added will be performed in the same duration and animation curve. But it is also possible to specify a delay:
+
+```swift
+    propertyAnimation.addAnimations({ 
+      self.darkBlueView.backgroundColor = Colors.red
+    }, delayFactor: 0.5)
+```
+
+Note, however, that this delay is a value between `0.0` and `1.0` and doesn't correspond to seconds...
+
+> The value you specify must be between 0.0 and 1.0. This value is multiplied by the animator’s remaining duration to determine the actual delay in seconds. For example, specifying the value 0.5 when the duration is 2.0 results in a one second delay for the start of the animations.
+
+---
+### Adding Completions and Reversing Animations
+
+Before we move on, let's clean up our code just a bit to make this a bit easier for us. First let's make our animators accessible to the entire view controller:
+
+```swift
+class ViewController: UIViewController {
+  static let animationDuration: TimeInterval = 1.0
+  
+  let darkBlueAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .linear, animations: nil)
+  let tealAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut, animations: nil)
+  let yellowAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeIn, animations: nil)
+  let orangeAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeOut, animations: nil)
+  
+  // ... other code ... //
+  
+}
+```
+
+Add the following code to the first line in `configureConstraints()` (you'll realize what its for in a moment)
+
+```swift
+    darkBlueView.snp.removeConstraints()
+    tealView.snp.removeConstraints()
+    yellowView.snp.removeConstraints()
+    orangeView.snp.removeConstraints()
+```
+
+Create a new function, `reset`
+
+```swift
+  internal func reset() {
+    configureConstraints()
+    self.view.layoutIfNeeded()
+  }
+```
+
+Add in a button below `animateButton` tasked with calling the `reset` function.
+
+```swift
+  internal lazy var resetAnimationsButton: UIButton = {
+    let button = UIButton(type: .roundedRect)
+    button.setTitle("Reset", for: .normal)
+    return button
+  }()
+```
+
+> Class coding: Now complete to complete our changes, add the new button to the view hierarchy, set its constraints, and add a new action-target. Lastly, update the `animateXXXXViewWithSnapkit` functions to make use of their corresponding instance animator objects. 
 
 ---
 
