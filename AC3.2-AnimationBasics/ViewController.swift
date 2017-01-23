@@ -10,6 +10,13 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+  static let animationDuration: TimeInterval = 1.0
+  
+  let darkBlueAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .linear, animations: nil)
+  let tealAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeInOut, animations: nil)
+  let yellowAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeIn, animations: nil)
+  let orangeAnimator = UIViewPropertyAnimator(duration: animationDuration, curve: .easeOut, animations: nil)
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,6 +28,10 @@ class ViewController: UIViewController {
   }
   
   private func configureConstraints() {
+    darkBlueView.snp.removeConstraints()
+    tealView.snp.removeConstraints()
+    yellowView.snp.removeConstraints()
+    orangeView.snp.removeConstraints()
     
     // blue
     darkBlueView.snp.makeConstraints { (view) in
@@ -50,11 +61,17 @@ class ViewController: UIViewController {
       view.size.equalTo(darkBlueView.snp.size)
     }
     
+    
     // button
     animateButton.snp.makeConstraints { (view) in
       view.centerX.equalToSuperview()
       view.bottom.equalToSuperview().inset(50.0)
       view.width.greaterThanOrEqualTo(100.0)
+    }
+    
+    resetAnimationsButton.snp.makeConstraints { (view) in
+      view.centerX.equalToSuperview()
+      view.top.equalTo(animateButton.snp.bottom).offset(8.0)
     }
   }
   
@@ -62,17 +79,20 @@ class ViewController: UIViewController {
     self.view.backgroundColor = .white
     
     self.view.addSubview(darkBlueView)
-    self.view.addSubview(animateButton)
     self.view.addSubview(tealView)
     self.view.addSubview(yellowView)
     self.view.addSubview(orangeView)
+    
+    self.view.addSubview(animateButton)
+    self.view.addSubview(resetAnimationsButton)
   }
   
   private func addGesturesAndActions() {
     self.animateButton.addTarget(self, action: #selector(animateViews), for: .touchUpInside)
+    self.resetAnimationsButton.addTarget(self, action: #selector(reset), for: .touchUpInside)
   }
   
-  private func reset() {
+  internal func reset() {
     configureConstraints()
     self.view.layoutIfNeeded()
   }
@@ -95,12 +115,16 @@ class ViewController: UIViewController {
       view.size.equalTo(CGSize(width: 100.0, height: 100.0))
     }
     
-    let propertyAnimation = UIViewPropertyAnimator(duration: 1.0, curve: .linear) {
+    darkBlueAnimator.addAnimations { 
       self.view.layoutIfNeeded()
     }
     
-    propertyAnimation.startAnimation()
+    darkBlueAnimator.addAnimations({ 
+      self.darkBlueView.backgroundColor = Colors.red
+    }, delayFactor: 0.5)
     
+    
+    darkBlueAnimator.startAnimation()
   }
   
   internal func animateTealViewWithSnapkit() {
@@ -110,11 +134,11 @@ class ViewController: UIViewController {
       view.size.equalTo(CGSize(width: 100.0, height: 100.0))
     }
     
-    let propertyAnimation = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+    tealAnimator.addAnimations { 
       self.view.layoutIfNeeded()
     }
     
-    propertyAnimation.startAnimation()
+    tealAnimator.startAnimation()
   }
   
   internal func animateYellowViewWithSnapkit() {
@@ -124,11 +148,11 @@ class ViewController: UIViewController {
       view.size.equalTo(CGSize(width: 100.0, height: 100.0))
     }
     
-    let propertyAnimation = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
+    yellowAnimator.addAnimations {
       self.view.layoutIfNeeded()
     }
     
-    propertyAnimation.startAnimation()
+    yellowAnimator.startAnimation()
   }
 
   internal func animateOrangeViewWithSnapkit() {
@@ -138,11 +162,11 @@ class ViewController: UIViewController {
       view.size.equalTo(CGSize(width: 100.0, height: 100.0))
     }
     
-    let propertyAnimation = UIViewPropertyAnimator(duration: 1.0, curve: .easeOut) {
+    orangeAnimator.addAnimations {
       self.view.layoutIfNeeded()
     }
     
-    propertyAnimation.startAnimation()
+    orangeAnimator.startAnimation()
   }
 
   
@@ -153,38 +177,43 @@ class ViewController: UIViewController {
     UIView.animate(withDuration: 1.0) {
       self.darkBlueView.frame = newFrame
     }
-    
   }
   
   
   // MARK: - Views
   internal lazy var darkBlueView: UIView = {
     let view: UIView = UIView()
-    view.backgroundColor = UIColor(colorLiteralRed: 51.0/255.0, green: 77.0/255.0, blue: 92.0/255.0, alpha: 1.0)
+    view.backgroundColor = Colors.darkBlue
     return view
   }()
   
   internal lazy var tealView: UIView = {
     let view: UIView = UIView()
-    view.backgroundColor = UIColor(colorLiteralRed: 69.0/255.0, green: 178.0/255.0, blue: 157.0/255.0, alpha: 1.0)
+    view.backgroundColor = Colors.teal
     return view
   }()
   
   internal lazy var yellowView: UIView = {
     let view: UIView = UIView()
-    view.backgroundColor = UIColor(colorLiteralRed: 239.0/255.0, green: 201.0/255.0, blue: 76.0/255.0, alpha: 1.0)
+    view.backgroundColor = Colors.yellow
     return view
   }()
   
   internal lazy var orangeView: UIView = {
     let view: UIView = UIView()
-    view.backgroundColor = UIColor(colorLiteralRed: 226.0/255.0, green: 122.0/255.0, blue: 63.0/255.0, alpha: 1.0)
+    view.backgroundColor = Colors.orange
     return view
   }()
   
   internal lazy var animateButton: UIButton = {
     let button = UIButton(type: UIButtonType.roundedRect)
     button.setTitle("Animate", for: .normal)
+    return button
+  }()
+  
+  internal lazy var resetAnimationsButton: UIButton = {
+    let button = UIButton(type: .roundedRect)
+    button.setTitle("Reset", for: .normal)
     return button
   }()
   
