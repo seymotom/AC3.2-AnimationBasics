@@ -234,7 +234,38 @@ Add this code snippet to your `darkBlueAnimator` instance inside of `animateDark
 
 ### Current state values / "Scrubbing"
 
+It is possible to adjust the current progress % of the animation by adjusting its `.fractionComplete` property. To demonstrate this, add in a `UISlider` to our project and place it just above the `animateButton`. Create a new function, `updateAnimationInProgress(sender:)` and add it as the target `selector` of the slider:
 
+```swift
+  internal func updateAnimationProgress(sender: UISlider) {
+    
+    if darkBlueAnimator.isRunning {
+      darkBlueAnimator.pauseAnimation()
+    } else {
+      animateDarkBlueViewWithSnapkit()
+      darkBlueAnimator.pauseAnimation()
+    }
+    
+    darkBlueAnimator.fractionComplete = CGFloat(sender.value)
+  }
+```
+
+You'll notice that for this to work, the animation has to be in progress. This is because we first need to pause the animation in order to update its `fractionComplete`. Now, try moving the slider before or during animations.
+
+> For all of the code up to this point, check out [this gist](https://gist.github.com/spacedrabbit/bf66a0e222eea54bffd1cd3521d86c70)
+
+--- 
+
+### Class Demos
+
+#### Springs! 
+Let's take a look at some of the springing animation we can add.
+
+#### Custom Bezier Curves!
+You can define your own timing functions.
+
+#### Dynamically Updating Animation!
+Let's see how we can dynamically change an animation but working with `UITouch` events.
 
 ---
 
