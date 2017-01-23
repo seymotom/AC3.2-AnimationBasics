@@ -73,6 +73,12 @@ class ViewController: UIViewController {
       view.centerX.equalToSuperview()
       view.top.equalTo(animateButton.snp.bottom).offset(8.0)
     }
+    
+    // switch
+    reverseAnimationsSwitch.snp.makeConstraints { (view) in
+      view.centerY.equalTo(animateButton.snp.centerY)
+      view.leading.equalToSuperview().offset(20.0)
+    }
   }
   
   private func setupViewHierarchy() {
@@ -83,6 +89,7 @@ class ViewController: UIViewController {
     self.view.addSubview(yellowView)
     self.view.addSubview(orangeView)
     
+    self.view.addSubview(reverseAnimationsSwitch)
     self.view.addSubview(animateButton)
     self.view.addSubview(resetAnimationsButton)
   }
@@ -90,11 +97,21 @@ class ViewController: UIViewController {
   private func addGesturesAndActions() {
     self.animateButton.addTarget(self, action: #selector(animateViews), for: .touchUpInside)
     self.resetAnimationsButton.addTarget(self, action: #selector(reset), for: .touchUpInside)
+    self.reverseAnimationsSwitch.addTarget(self, action: #selector(reverse(sender:)), for: .valueChanged)
   }
   
   internal func reset() {
+    darkBlueAnimator.stopAnimation(true)
+    
     configureConstraints()
     self.view.layoutIfNeeded()
+  }
+  
+  internal func reverse(sender: UISwitch) {
+    darkBlueAnimator.isReversed = sender.isOn
+    tealAnimator.isReversed = sender.isOn
+    orangeAnimator.isReversed = sender.isOn
+    yellowAnimator.isReversed = sender.isOn
   }
   
   // MARK: - Animations
@@ -123,6 +140,13 @@ class ViewController: UIViewController {
       self.darkBlueView.backgroundColor = Colors.red
     }, delayFactor: 0.5)
     
+    darkBlueAnimator.addCompletion { (position: UIViewAnimatingPosition) in
+      switch position {
+      case .start: print("At the start of the animation")
+      case .end: print("At the end of the animation")
+      case .current: print("Somewhere in the middle")
+      }
+    }
     
     darkBlueAnimator.startAnimation()
   }
@@ -217,5 +241,10 @@ class ViewController: UIViewController {
     return button
   }()
   
+  internal lazy var reverseAnimationsSwitch: UISwitch = {
+    let reverseSwitch = UISwitch()
+    reverseSwitch.isOn = false
+    return reverseSwitch
+  }()
 }
 
