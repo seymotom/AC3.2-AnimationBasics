@@ -18,7 +18,7 @@
 
 ### Animations the Old Way
 
-Previously, like laying out views in general, basic movement animations were done using primarily `frame`s. *(LINK TO ANIMATABLE PROPERTIES)*. The code is somewhat straightforward to read, but difficult to extend and create complex animations.
+Previously, like laying out views in general, basic movement animations were done using primarily `frame`s (see [What Can Be Animated? - Apple Docs](https://developer.apple.com/library/content/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html#//apple_ref/doc/uid/TP40009503-CH6-SW2) for list of animatable properies). The code is somewhat straightforward to read, but difficult to extend and create complex animations.
 
 
 #### Animating a View Left-to-Right: `UIView.animate`
@@ -31,7 +31,7 @@ Previously, like laying out views in general, basic movement animations were don
   }
 ```
 
-`UIView.animate(withDuration:)` was used as a simple way to execute view animations inside of its closure. iOS would look at the starting state of the view, along with the changes specified in the animation block and then automatically generate all of the "tweening" (in-between states) needed for the animation to occur smoothly. The class functions on `UIView` are very convenient and allow for some decent customization for basic animations to a view's animatable properties. Along with the duration of the animation it is also possible to adjust delays, animation curves, and other options. It is still possible (and pretty common) to do these sorts of animations with `UIView`'s class functions, but in iOS10 Apple has taken things one step further with `UIViewPropertyAnimator` *(LINK TO DOCUMENTATION)*
+`UIView.animate(withDuration:)` was used as a simple way to execute view animations inside of its closure. iOS would look at the starting state of the view, along with the changes specified in the animation block and then automatically generate all of the "tweening" (in-between states) needed for the animation to occur smoothly. The class functions on `UIView` are very convenient and allow for some decent customization for basic animations to a view's animatable properties. Along with the duration of the animation it is also possible to adjust delays, animation curves, and other options. It is still possible (and pretty common) to do these sorts of animations with `UIView`'s class functions, but in iOS10 Apple has taken things one step further with [`UIViewPropertyAnimator`](https://developer.apple.com/reference/uikit/uiviewpropertyanimator)
 
 > "A UIViewPropertyAnimator object lets you animate changes to views and dynamically modify your animations before they finish. With a property animator, you can run your animations from start to finish normally or you can turn them into interactive animations and control the timing yourself." 
 
@@ -188,7 +188,7 @@ Add in a button below `animateButton` tasked with calling the `reset` function.
 
 > Class coding: Now complete to complete our changes, add the new button to the view hierarchy, set its constraints, and add a new action-target. Lastly, update the `animateXXXXViewWithSnapkit` functions to make use of their corresponding instance animator objects. When you're ready, or if you get stuck, compare your code with mine: [Basic Animations Clean Up](https://gist.github.com/spacedrabbit/e2688e21b7e1515689fe22f4a05e2e4f)
 
-*(ADD SCREENSHOT OF PROJECT AS IS)*
+![Basic Animations With Animate and Reset](./Images/BasicAnimations_0.png)
 
 When you finish, go ahead and run your project and play around with the animations. You may notice something odd if you try to reset the animations before they complete... why is that?
 
