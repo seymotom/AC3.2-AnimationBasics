@@ -275,6 +275,11 @@ You can define your own timing functions.
 #### Dynamically Updating Animation!
 Let's see how we can dynamically change an animation but working with `UITouch` events.
 
+1. Stage 1: Moving a view to where you touch ([Full Code](https://gist.github.com/spacedrabbit/f795f5980c4f223a5230e96b8eb1c821))
+2. Stage 2: Adding a scale animation to simulate z-position ([Full Code](https://gist.github.com/spacedrabbit/c0c0282c4879d72c804a0a1aa0e69d49))
+3. Stage 3: Changing code to work with touch-dragging ([Full Code](https://gist.github.com/spacedrabbit/d1d0dfe4af93e6124bfad29c19f5979e))
+4. Stage 4: Only tapping in the bounds of the view will drag ([Full Code](https://gist.github.com/spacedrabbit/60821d6d19b216f87e7143a54153b35e))
+
 ---
 
 ### Exercise
