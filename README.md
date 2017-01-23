@@ -252,6 +252,8 @@ It is possible to adjust the current progress % of the animation by adjusting it
 
 You'll notice that for this to work, the animation has to be in progress. This is because we first need to pause the animation in order to update its `fractionComplete`. Now, try moving the slider before or during animations.
 
+![Slider Added](./Images/BasicAnimations_1.png)
+
 > For all of the code up to this point, check out [this gist](https://gist.github.com/spacedrabbit/bf66a0e222eea54bffd1cd3521d86c70)
 
 --- 
