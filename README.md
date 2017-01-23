@@ -1,6 +1,18 @@
 # AC3.2-AnimationBasics
 ---
 
+### Readings
+1. [UIViewPropertyAnimator - Apple Docs](https://developer.apple.com/reference/uikit/uiviewpropertyanimator)
+1. [Animating Constraints Using iOS 10’s New UIViewPropertyAnimator - Medium](https://medium.com/@sdrzn/animating-constraints-using-ios-10s-new-uiviewpropertyanimator-944bbb42347b#.q407dwl8l)
+2. [iOS10 - UIViewPropertyAnimator - Swiftification](http://www.swiftification.org/2016/08/04/ios10-uiviewpropertyanimator-tutorial/)
+3. [Quick Guide Animations With UIViewPropertyAnimator - Think and Build It](http://www.thinkandbuild.it/quick-guide-animations-with-uiviewpropertyanimator/)
+4. [iOS 10 Day-by-Day: Day 4 UIViewPropertyAnimator](https://www.shinobicontrols.com/blog/ios-10-day-by-day-day-4-uiviewpropertyanimator)
+5. [Using UIViewPropertyAnimator - Technotopia](http://www.techotopia.com/index.php/IOS_10_Animation_using_UIViewPropertyAnimator)
+
+### Awesome Tools
+1. [Cubic Bezier](http://cubic-bezier.com/#.17,.67,.83,.67)
+---
+
 ### Animations the Old Way
 
 Previously, like laying out views in general, basic movement animations were done using primarily `frame`s. *(LINK TO ANIMATABLE PROPERTIES)*. The code is somewhat straightforward to read, but difficult to extend and create complex animations.
@@ -87,4 +99,11 @@ Just writing them down isn't really going to help us visualize the actual moveme
 
 ---
 
+---
+
+### Exercise
+
+1. Your first exercise is to reproduce this simple "dice" animation: https://ios.uplabs.com/posts/simple-dice-app#_=_
+
+2. Next, attempt to recreate this login/registration screen animation: https://material.uplabs.com/posts/login-mockup
 
