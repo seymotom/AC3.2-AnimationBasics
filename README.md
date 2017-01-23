@@ -104,6 +104,8 @@ Just writing them down isn't really going to help us visualize the actual moveme
 
 > Why is it necessary to use `self.view.layoutIfNeeded()` inside of the animation block, instead of just remaking the constraints? Adjusting the constraints is just part of the process; `layoutIfNeeded()` signals to the autolayout engine that it must immediately re-evaluate a view's constraints. Calling for that signal inside of an animation block results in getting an animation out of the redrawing/arranging that needs to happen.
 
+![Basic Animations - 0 Animate button](./Images/BasicAnimations_0_Animate.png)
+
 ---
 ### Adding Animations
 
@@ -138,6 +140,8 @@ Pretty simple! The animations added will be performed in the same duration and a
 Note, however, that this delay is a value between `0.0` and `1.0` and doesn't correspond to seconds...
 
 > The value you specify must be between 0.0 and 1.0. This value is multiplied by the animator’s remaining duration to determine the actual delay in seconds. For example, specifying the value 0.5 when the duration is 2.0 results in a one second delay for the start of the animations.
+
+![Basic Animations - 2 Additional Animations](./Images/BasicAnimations_2_ColorChange.png)
 
 ---
 ### Cleaning Up
@@ -188,7 +192,7 @@ Add in a button below `animateButton` tasked with calling the `reset` function.
 
 > Class coding: Now complete to complete our changes, add the new button to the view hierarchy, set its constraints, and add a new action-target. Lastly, update the `animateXXXXViewWithSnapkit` functions to make use of their corresponding instance animator objects. When you're ready, or if you get stuck, compare your code with mine: [Basic Animations Clean Up](https://gist.github.com/spacedrabbit/e2688e21b7e1515689fe22f4a05e2e4f)
 
-![Basic Animations With Animate and Reset](./Images/BasicAnimations_0.png)
+![Basic Animations - 1 Reset Button](./Images/BasicAnimations_1_Reset.png)
 
 When you finish, go ahead and run your project and play around with the animations. You may notice something odd if you try to reset the animations before they complete... why is that?
 
@@ -210,6 +214,8 @@ Let's try to reverse our animations, rather than reseting them. Add a new functi
 Additionally, add a `UISwitch` to the project and add its `target` as this new `reverse` function. 
 
 Now, tap on "Animate" and flip the switch during its animation! 
+
+![Basic Animations - 3 Reverse Animations Button](./Images/BasicAnimations_3_Reverse.png)
 
 #### Completion Handlers
 A completion handler for a `UIViewPropertyAnimator` lets you know at what state the animation was in when the animation finished. That state corresponds to an enum, `UIViewAnimatingPosition`: 
@@ -252,7 +258,7 @@ It is possible to adjust the current progress % of the animation by adjusting it
 
 You'll notice that for this to work, the animation has to be in progress. This is because we first need to pause the animation in order to update its `fractionComplete`. Now, try moving the slider before or during animations.
 
-![Slider Added](./Images/BasicAnimations_1.png)
+![Basic Animations - 4 Slider Button](./Images/BasicAnimations_4_FractionComplete.png)
 
 > For all of the code up to this point, check out [this gist](https://gist.github.com/spacedrabbit/bf66a0e222eea54bffd1cd3521d86c70)
 
