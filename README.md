@@ -140,7 +140,7 @@ Note, however, that this delay is a value between `0.0` and `1.0` and doesn't co
 > The value you specify must be between 0.0 and 1.0. This value is multiplied by the animator’s remaining duration to determine the actual delay in seconds. For example, specifying the value 0.5 when the duration is 2.0 results in a one second delay for the start of the animations.
 
 ---
-### Adding Completions and Reversing Animations
+### Cleaning Up
 
 Before we move on, let's clean up our code just a bit to make this a bit easier for us. First let's make our animators accessible to the entire view controller:
 
@@ -186,7 +186,55 @@ Add in a button below `animateButton` tasked with calling the `reset` function.
   }()
 ```
 
-> Class coding: Now complete to complete our changes, add the new button to the view hierarchy, set its constraints, and add a new action-target. Lastly, update the `animateXXXXViewWithSnapkit` functions to make use of their corresponding instance animator objects. 
+> Class coding: Now complete to complete our changes, add the new button to the view hierarchy, set its constraints, and add a new action-target. Lastly, update the `animateXXXXViewWithSnapkit` functions to make use of their corresponding instance animator objects. When you're ready, or if you get stuck, compare your code with mine: [Basic Animations Clean Up](https://gist.github.com/spacedrabbit/e2688e21b7e1515689fe22f4a05e2e4f)
+
+*(ADD SCREENSHOT OF PROJECT AS IS)*
+
+When you finish, go ahead and run your project and play around with the animations. You may notice something odd if you try to reset the animations before they complete... why is that?
+
+### Adding Completions and Reversing Animations
+
+To fix the above (at least for one of the animators), add in this additional line to the very beginning of your `reset()` function: `darkBlueAnimator.stopAnimation(true)`. This happens because the action to "reset" the animation happens in the middle of the current animation, resulting in a *dynamically* changing animation to satisfy the new constraints. Pretty awesome. More on that later.
+
+Let's try to reverse our animations, rather than reseting them. Add a new function, `reverse(sender: UISwitch)`
+
+```swift
+  internal func reverse(sender: UISwitch) {
+    darkBlueAnimator.isReversed = sender.isOn
+    tealAnimator.isReversed = sender.isOn
+    orangeAnimator.isReversed = sender.isOn
+    yellowAnimator.isReversed = sender.isOn
+  }
+```
+
+Additionally, add a `UISwitch` to the project and add its `target` as this new `reverse` function. 
+
+Now, tap on "Animate" and flip the switch during its animation! 
+
+#### Completion Handlers
+A completion handler for a `UIViewPropertyAnimator` lets you know at what state the animation was in when the animation finished. That state corresponds to an enum, `UIViewAnimatingPosition`: 
+
+1. `.end`: The end point of the animation. Use this constant when you want the final values for any animatable properties—that is, you want to refer to the values you specified in your animation blocks.
+2. `.start`: The beginning of the animation. Use this constant when you want the starting values for any animatable properties—that is, the values of the properties before you applied any animations.
+3. `.current`: The current position. Use this constant when you want the most recent value set by an animator object.
+
+Add this code snippet to your `darkBlueAnimator` instance inside of `animateDarkViewWithSnapKit()` and observe the changes: 
+
+```swift
+    darkBlueAnimator.addCompletion { (position: UIViewAnimatingPosition) in
+      switch position {
+      case .start: print("At the start of the animation")
+      case .end: print("At the end of the animation")
+      case .current: print("Somewhere in the middle")
+      }
+    }
+```
+
+---
+
+### Current state values / "Scrubbing"
+
+
 
 ---
 
