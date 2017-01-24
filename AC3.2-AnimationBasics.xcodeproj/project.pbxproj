@@ -66,7 +66,6 @@
 				14CFEC291E3577BC00BD46CF /* ViewController.swift */,
 				14CFEC3C1E36B43A00BD46CF /* Demos */,
 				14CFEC391E3577EF00BD46CF /* Supporting Files */,
-				14CFEC3A1E367AFE00BD46CF /* Utility.swift */,
 			);
 			path = "AC3.2-AnimationBasics";
 			sourceTree = "<group>";
@@ -74,6 +73,7 @@
 		14CFEC391E3577EF00BD46CF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14CFEC3A1E367AFE00BD46CF /* Utility.swift */,
 				14CFEC271E3577BC00BD46CF /* AppDelegate.swift */,
 				14CFEC2E1E3577BC00BD46CF /* Assets.xcassets */,
 				14CFEC301E3577BC00BD46CF /* LaunchScreen.storyboard */,
