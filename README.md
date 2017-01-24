@@ -9,10 +9,13 @@
 4. [iOS 10 Day-by-Day: Day 4 UIViewPropertyAnimator](https://www.shinobicontrols.com/blog/ios-10-day-by-day-day-4-uiviewpropertyanimator)
 5. [Using UIViewPropertyAnimator - Technotopia](http://www.techotopia.com/index.php/IOS_10_Animation_using_UIViewPropertyAnimator)
 
-### Awesome Tools
+### Tools
 
 1. [Cubic Bezier](http://cubic-bezier.com/#.17,.67,.83,.67)
 
+### Sample Projects
+
+1. [Save The Dot!](https://github.com/JakeLin/SaveTheDot)
 
 ---
 
@@ -142,6 +145,8 @@ Note, however, that this delay is a value between `0.0` and `1.0` and doesn't co
 > The value you specify must be between 0.0 and 1.0. This value is multiplied by the animator’s remaining duration to determine the actual delay in seconds. For example, specifying the value 0.5 when the duration is 2.0 results in a one second delay for the start of the animations.
 
 ![Basic Animations - 2 Additional Animations](./Images/BasicAnimations_2_ColorChange.png)
+
+> Class coding: Go ahead and add a few more animations of your own. Try playing around with `alpha` or `backgroundColor`, or introduce a new transform like `scale` or `rotation`.
 
 ---
 ### Cleaning Up
