@@ -14,6 +14,7 @@
 		14CFEC3B1E367AFE00BD46CF /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CFEC3A1E367AFE00BD46CF /* Utility.swift */; };
 		14CFEC3E1E36B4BB00BD46CF /* TouchAnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CFEC3D1E36B4BB00BD46CF /* TouchAnimatorViewController.swift */; };
 		2EF780C482C92007ED967AFB /* Pods_AC3_2_AnimationBasics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBE7EBF1E6DAA546F8B671D /* Pods_AC3_2_AnimationBasics.framework */; };
+		DE21AFE41E43D3EA0088FC20 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21AFE31E43D3EA0088FC20 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		6447900C60C0E843BE747686 /* Pods-AC3.2-AnimationBasics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC3.2-AnimationBasics.release.xcconfig"; path = "Pods/Target Support Files/Pods-AC3.2-AnimationBasics/Pods-AC3.2-AnimationBasics.release.xcconfig"; sourceTree = "<group>"; };
 		AFBE7EBF1E6DAA546F8B671D /* Pods_AC3_2_AnimationBasics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AC3_2_AnimationBasics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B558B66F2EF9FE69DC48D946 /* Pods-AC3.2-AnimationBasics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC3.2-AnimationBasics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AC3.2-AnimationBasics/Pods-AC3.2-AnimationBasics.debug.xcconfig"; sourceTree = "<group>"; };
+		DE21AFE31E43D3EA0088FC20 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		14CFEC261E3577BC00BD46CF /* AC3.2-AnimationBasics */ = {
 			isa = PBXGroup;
 			children = (
+				DE21AFE31E43D3EA0088FC20 /* LoginViewController.swift */,
 				14CFEC291E3577BC00BD46CF /* ViewController.swift */,
 				14CFEC3C1E36B43A00BD46CF /* Demos */,
 				14CFEC391E3577EF00BD46CF /* Supporting Files */,
@@ -232,6 +235,7 @@
 				14CFEC2A1E3577BC00BD46CF /* ViewController.swift in Sources */,
 				14CFEC281E3577BC00BD46CF /* AppDelegate.swift in Sources */,
 				14CFEC3B1E367AFE00BD46CF /* Utility.swift in Sources */,
+				DE21AFE41E43D3EA0088FC20 /* LoginViewController.swift in Sources */,
 				14CFEC3E1E36B4BB00BD46CF /* TouchAnimatorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
